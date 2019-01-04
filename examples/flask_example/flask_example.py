@@ -6,6 +6,17 @@ import urllib
 import wget
 import os
 
+def create_daughter_directory(dir_name):
+    dir_name = dir_name.replace(' ','_')
+    cwd = os.getcwd()
+    dir_path = os.path.join(cwd,dir_name)
+    if not os.path.exists(dir_path): 
+        os.makedirs(dir_path)  
+    return dir_path
+
+create_daughter_directory('static')
+upload_folder = os.path.join(os.getcwd(), 'static')
+
 tag = raw_input("Provide an instagram tag for the photos you want to download: ")
 num_images = int( raw_input("List the number of images you want to download: ") )
 
@@ -29,7 +40,7 @@ for script in soup.findAll('script'):
                     i += 1
                     wget.download(image_url)
                     image_file = image_url.split('?')[0].split('/')[-1]
-                    os.rename(image_file, os.path.join(os.path.join(os.getcwd(), 'static'),image_file) )
+                    os.rename(image_file, os.path.join(upload_folder,image_file) )
 
 ###################################################################################################
 from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
@@ -38,7 +49,7 @@ import random
 import webbrowser
 webbrowser.get('firefox').open('http://127.0.0.1:5000/')
 
-upload_folder = os.path.join(os.getcwd(), 'static')
+
 
 # creates a Flask application, named app
 app = Flask(__name__)
