@@ -23,7 +23,7 @@ num_images = int( raw_input("List the number of images you want to download: ") 
 url = requests.get("https://www.instagram.com/explore/tags/%s/?hl=en" %tag.strip(' '))
 soup = BeautifulSoup(url.text)
 
-i = 0
+i = 1
 for script in soup.findAll('script'):
     if script.string != None:
         if "window._sharedData = " in script.string:
