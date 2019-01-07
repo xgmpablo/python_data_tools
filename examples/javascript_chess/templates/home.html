@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chess Board</title>
+        <style>
+        body {
+          background-image: url("static/chess_board_2.jpg");
+          background-repeat: no-repeat;
+          background-size: 800px 800px;
+        }
+        </style>
+    </head>
+ 
+    <body onload="startGame()">
+        <script>
+            var mousePosition;
+            var offset = [0,0];
+            var div;
+            var isDown = false;
+
+            div = document.createElement("img");
+            div.setAttribute("src", "static/chess_queen.png");
+            div.style.position = "absolute";
+            div.style.left = "0px";
+            div.style.top = "0px";
+            div.style.width = "70px";
+            div.style.height = "70px";
+
+            document.body.appendChild(div);
+
+            div.addEventListener('mousedown', function(e) {
+                isDown = true;
+                offset = [
+                    div.offsetLeft - e.clientX,
+                    div.offsetTop - e.clientY
+                ];
+            }, true);
+
+            document.addEventListener('mouseup', function() {
+                isDown = false;
+            }, true);
+
+            document.addEventListener('mousemove', function(event) {
+                event.preventDefault();
+                if (isDown) {
+                    mousePosition = {
+
+                        x : event.clientX,
+                        y : event.clientY
+
+                    };
+                    div.style.left = (mousePosition.x + offset[0]) + 'px';
+                    div.style.top  = (mousePosition.y + offset[1]) + 'px';
+                }
+            }, true);
+
+        </script>
+    </body>
+</html>
+
